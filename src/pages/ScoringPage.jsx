@@ -64,7 +64,7 @@ const QuotaWall = ({ mensaje }) => (
     </div>
     <div style={{ background: 'rgba(0,194,180,0.1)', border: '1px solid rgba(0,194,180,0.3)', borderRadius: 8, padding: '16px 24px', marginBottom: 20 }}>
       <div style={{ fontSize: 12, color: 'var(--teal)', fontWeight: 600, marginBottom: 4 }}>Plan Professional</div>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 22, color: 'var(--white)', fontWeight: 700 }}>$1,000 USD / mes</div>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 22, color: 'var(--white)', fontWeight: 700 }}>$0 USD / mes</div>
       <div style={{ fontSize: 11, color: 'var(--gray)', marginTop: 4 }}>3,000 consultas · Todos los ramos · Antifraude incluido</div>
     </div>
     <a href="mailto:mario@risklens.cr?subject=Activar suscripcion RiskLens Professional"

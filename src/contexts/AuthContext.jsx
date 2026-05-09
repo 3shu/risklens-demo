@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from 'react'
 
 const USERS = [
-  { email: 'admin@mnkseguros.com',  password: 'risklens', apiKey: 'rl_mnk-seguros-oc_7y066-psc6sxtm8jxNP7oYYt', nombre: 'MNK Seguros' },
+  { email: 'admin@mnkseguros.com',  password: 'risklens', apiKey: 'rl_mnk-seguros-oc_7yO66-psc6sxtm8jxNP7oYYt', nombre: 'MNK Seguros' },
   { email: 'admin@assaseguros.com', password: 'risklens', apiKey: 'rl_assa-compania_Z3Ou1d8XFPn-_dlF6l-20zty',  nombre: 'ASSA Compañía' },
   { email: 'admin@qualitas.com',    password: 'risklens', apiKey: 'rl_qualitas-compa_u0HpRaiq-0bDPrZ-N5i7twy0', nombre: 'Qualitas Compañía' },
   { email: 'admin@ins.com',         password: 'risklens', apiKey: 'rl_ins-instituto_X-mqxq8uC6HKvvZlEycWgcJu',  nombre: 'INS Instituto' },
