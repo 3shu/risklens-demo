@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
-import { Shield, FileSearch, BarChart3, AlertTriangle, Menu, X, Activity } from 'lucide-react'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { Shield, FileSearch, BarChart3, AlertTriangle, Menu, X, Activity, LogOut } from 'lucide-react'
+import { useAuth } from '../contexts/AuthContext'
 
 const NAV = [
   { to: '/',          icon: Shield,      label: 'Scoring',    sub: 'Suscripcion' },
@@ -11,6 +12,13 @@ const NAV = [
 export default function Layout({ children }) {
   const [open, setOpen] = useState(false)
   const location = useLocation()
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--navy)' }}>
@@ -70,6 +78,19 @@ export default function Layout({ children }) {
 
         {/* Footer */}
         <div style={{ padding: '16px 20px', borderTop: '1px solid var(--border)' }}>
+          {user && (
+            <div style={{ marginBottom: 10 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--white)', marginBottom: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user.nombre}</div>
+              <div style={{ fontSize: 10, color: 'var(--gray)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user.email}</div>
+            </div>
+          )}
+          <button
+            onClick={handleLogout}
+            style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '7px 10px', borderRadius: 6, background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--gray)', fontSize: 12, cursor: 'pointer', width: '100%', marginBottom: 10 }}
+          >
+            <LogOut size={13} />
+            Cerrar sesión
+          </button>
           <div style={{ fontSize: 10, color: 'var(--gray)', lineHeight: 1.5 }}>
             <div style={{ color: 'var(--teal)', fontWeight: 600, marginBottom: 2 }}>Demo — Datos Sinteticos</div>
             <div>Confidencial</div>

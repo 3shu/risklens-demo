@@ -5,4 +5,6 @@ CLAUDE.md
 /dist/*
 .DS_Store
 package-lock.json
-.env*
+.env
+.env.*
+specs/*

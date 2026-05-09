@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Shield, AlertTriangle, Zap, Wifi, WifiOff, Lock } from 'lucide-react'
 import { calcularScore, RAMOS, ACTIVIDADES, PROVINCIAS } from '../data/data.js'
+import { useAuth } from '../contexts/AuthContext'
 
 const API_URL = import.meta.env.VITE_API_URL || ''
-const API_KEY = import.meta.env.VITE_API_KEY || 'demo-key'
 const FREE_LIMIT = 300
 
 const fmt = (n) => new Intl.NumberFormat('es-CR', { style: 'currency', currency: 'CRC', maximumFractionDigits: 0 }).format(n)
@@ -75,6 +75,9 @@ const QuotaWall = ({ mensaje }) => (
 )
 
 export default function ScoringPage() {
+  const { user } = useAuth()
+  const API_KEY = user?.apiKey || import.meta.env.VITE_API_KEY || 'demo-key'
+  const tokenKey = `rl_tokens_${user?.email || 'demo'}`
   const [form, setForm] = useState({
     ramo: 'riesgos_trabajo', actividad_ciiu: '4520', provincia: 'Puntarenas',
     edad: '38', num_empleados: '45', suma_asegurada: '15000000',
@@ -86,8 +89,8 @@ export default function ScoringPage() {
   const [usingApi, setUsingApi] = useState(!!API_URL)
   const [apiError, setApiError] = useState(null)   // { titulo, mensaje } — banner, form stays usable
   const [quotaMensaje, setQuotaMensaje] = useState(null) // message from 402 body for QuotaWall
-  const [tokensUsado, setTokensUsado] = useState(() => parseInt(localStorage.getItem('rl_tokens') || '0'))
-  const [quotaAgotada, setQuotaAgotada] = useState(() => parseInt(localStorage.getItem('rl_tokens') || '0') >= FREE_LIMIT)
+  const [tokensUsado, setTokensUsado] = useState(() => parseInt(localStorage.getItem(tokenKey) || '0'))
+  const [quotaAgotada, setQuotaAgotada] = useState(() => parseInt(localStorage.getItem(tokenKey) || '0') >= FREE_LIMIT)
 
   const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }))
 
@@ -136,14 +139,14 @@ export default function ScoringPage() {
         const restantes = data.tokens_restantes ?? FREE_LIMIT
         const nuevoUsado = FREE_LIMIT - restantes
         setTokensUsado(nuevoUsado)
-        localStorage.setItem('rl_tokens', String(nuevoUsado))
+        localStorage.setItem(tokenKey, String(nuevoUsado))
         setQuotaAgotada(restantes <= 0)
       } else {
         await new Promise(r => setTimeout(r, 700))
         const local = calcularScore({ ...form })
         const nuevoUsado = tokensUsado + 1
         setTokensUsado(nuevoUsado)
-        localStorage.setItem('rl_tokens', String(nuevoUsado))
+        localStorage.setItem(tokenKey, String(nuevoUsado))
         if (nuevoUsado >= FREE_LIMIT) setQuotaAgotada(true)
         data = { ...local, nivel_riesgo: local.nivel, prima_sugerida: local.primaAjustada, tokens_restantes: FREE_LIMIT - nuevoUsado, modelo_version: '1.0.0-demo' }
       }
@@ -152,7 +155,7 @@ export default function ScoringPage() {
       const local = calcularScore({ ...form })
       const nuevoUsado = tokensUsado + 1
       setTokensUsado(nuevoUsado)
-      localStorage.setItem('rl_tokens', String(nuevoUsado))
+      localStorage.setItem(tokenKey, String(nuevoUsado))
       if (nuevoUsado >= FREE_LIMIT) setQuotaAgotada(true)
       setResult({ ...local, nivel_riesgo: local.nivel, prima_sugerida: local.primaAjustada, tokens_restantes: FREE_LIMIT - nuevoUsado, modelo_version: '1.0.0-demo' })
       setUsingApi(false)

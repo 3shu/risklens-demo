@@ -48,6 +48,16 @@ src/
     CarteraPage.jsx     — Analytics y graficos de cartera
 ```
 
+## Credenciales demo (misma contraseña para todos: `risklens`):
+
+| Email | Empresa       | API Key |
+| ---- | ---------- | -------- |
+| admin@mnkseguros.com   | MNK Seguros    | rl_mnk-seguros-oc_...        |
+| admin@assaseguros.com   | ASSA Compañía de Seguros    | rl_assa-compania_...        |
+| admin@qualitas.com  | Qualitas Compañía de Seguros    | rl_qualitas-compa_...        |
+| admin@ins.com   | INS   | rl_ins-instituto_...        |
+| admin@risklens-cr.com   | Tenant de Desarrollo    | test-001        |
+
 ## Nota
 
 Todos los datos son 100% sinteticos. El scoring usa logica de reglas hardcodeadas
