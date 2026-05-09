@@ -1,6 +1,6 @@
 # RiskLens CR — Dashboard Demo
 
-Motor de Inteligencia de Riesgo · Demo para MNK Seguros
+Motor de Inteligencia de Riesgo · Demo para Seguros
 
 ## Instalacion local
 

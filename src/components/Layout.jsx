@@ -72,7 +72,7 @@ export default function Layout({ children }) {
         <div style={{ padding: '16px 20px', borderTop: '1px solid var(--border)' }}>
           <div style={{ fontSize: 10, color: 'var(--gray)', lineHeight: 1.5 }}>
             <div style={{ color: 'var(--teal)', fontWeight: 600, marginBottom: 2 }}>Demo — Datos Sinteticos</div>
-            <div>Confidencial · MNK Seguros</div>
+            <div>Confidencial</div>
           </div>
         </div>
       </aside>
