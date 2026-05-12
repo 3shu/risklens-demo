@@ -8,3 +8,5 @@ package-lock.json
 .env
 .env.*
 specs/*
+brand-core/*
+brand-model/*

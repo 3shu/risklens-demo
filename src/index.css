@@ -1,41 +1,86 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --navy:       #0D1B40;
-  --navy-mid:   #152552;
-  --navy-light: #1E3370;
-  --navy-card:  #1a2d5a;
-  --teal:       #00C2B4;
-  --teal-dim:   #009E92;
-  --white:      #FFFFFF;
-  --off-white:  #EEF2FF;
-  --gray:       #8A97B8;
-  --gray-light: #D0D8EE;
-  --red:        #E84545;
-  --amber:      #F5A623;
-  --green:      #2ECC71;
-  --green-dim:  #27AE60;
-  --text-main:  #EEF2FF;
-  --text-muted: #8A97B8;
-  --border:     rgba(255,255,255,0.08);
-  --font-head:  'Syne', sans-serif;
-  --font-body:  'DM Sans', sans-serif;
-  --font-mono:  'Space Mono', monospace;
+  --primary:       #065F46;
+  --primary-mid:   #054d38;
+  --primary-light: #0a7a5a;
+  --accent:        #10B981;
+  --accent-dim:    #059669;
+  --mint:          #6EE7B7;
+  --ink:           #0F172A;
+  --ink-mid:       #1e293b;
+  --ink-light:     #334155;
+  --ink-deep:      #0a1410;
+  --ink-elev:      rgba(255,255,255,0.04);
+  --emerald-glow:  rgba(16,185,129,0.15);
+  --emerald-night: #082018;
+  --emerald-mid:   #0f1d17;
+  --emerald-dim:   #0c1813;
+  --slate:         #64748B;
+  --slate-light:   #94A3B8;
+  --mist:          #F0FDF4;
+  --white:         #FFFFFF;
+  --off-white:     #f8fafc;
+
+  --bg:            #F1F5F9;
+  --surface:       #FFFFFF;
+  --surface-2:     #F8FAFC;
+  --surface-elev:  rgba(0,0,0,0.03);
+  --sidebar-bg:    var(--primary);
+
+  --border:        rgba(0,0,0,0.08);
+  --border-accent: rgba(16,185,129,0.25);
+  --danger:        #E84545;
+  --warning:       #F5A623;
+  --success:       #10B981;
+  --success-dim:   #059669;
+  --text-main:     #0F172A;
+  --text-muted:    #64748B;
+  --chart-grid:    rgba(0,0,0,0.06);
+  --chart-axis:    #64748B;
+  --tooltip-bg:    #FFFFFF;
+  --tooltip-text:  #0F172A;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md:     0 4px 16px rgba(0,0,0,0.08);
+
+  --font-head:     'Inter', -apple-system, 'Segoe UI', sans-serif;
+  --font-body:     'Inter', -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:     'SF Mono', 'Fira Code', monospace;
+}
+
+[data-theme="dark"] {
+  --bg:            var(--ink-deep);
+  --surface:       var(--emerald-mid);
+  --surface-2:     var(--emerald-dim);
+  --surface-elev:  var(--ink-elev);
+  --sidebar-bg:    var(--emerald-night);
+
+  --border:        rgba(255,255,255,0.06);
+  --text-main:     #f8fafc;
+  --text-muted:    #94A3B8;
+  --chart-grid:    rgba(255,255,255,0.05);
+  --chart-axis:    #94A3B8;
+  --tooltip-bg:    var(--emerald-mid);
+  --tooltip-text:  #f8fafc;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md:     0 4px 20px rgba(0,0,0,0.5);
 }
 
 html, body, #root {
   height: 100%;
-  background: var(--navy);
+  background: var(--bg);
   color: var(--text-main);
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--navy-mid); }
-::-webkit-scrollbar-thumb { background: var(--navy-light); border-radius: 3px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: #334155; }
 
 button { cursor: pointer; font-family: var(--font-body); }
 input, select { font-family: var(--font-body); }
@@ -51,26 +96,32 @@ input, select { font-family: var(--font-body); }
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-.badge-alto    { background: rgba(232,69,69,0.15);  color: var(--red);   border: 1px solid rgba(232,69,69,0.3); }
-.badge-medio   { background: rgba(245,166,35,0.15); color: var(--amber); border: 1px solid rgba(245,166,35,0.3); }
-.badge-bajo    { background: rgba(46,204,113,0.15); color: var(--green); border: 1px solid rgba(46,204,113,0.3); }
-.badge-fraude  { background: rgba(232,69,69,0.2);   color: var(--red);   border: 1px solid rgba(232,69,69,0.4); }
-.badge-limpio  { background: rgba(46,204,113,0.12); color: var(--green); border: 1px solid rgba(46,204,113,0.25); }
+.badge-alto    { background: rgba(232,69,69,0.10);  color: var(--danger);  border: 1px solid rgba(232,69,69,0.25); }
+.badge-medio   { background: rgba(245,166,35,0.10); color: var(--warning); border: 1px solid rgba(245,166,35,0.25); }
+.badge-bajo    { background: rgba(16,185,129,0.10); color: var(--success); border: 1px solid rgba(16,185,129,0.25); }
+.badge-fraude  { background: rgba(232,69,69,0.12);  color: var(--danger);  border: 1px solid rgba(232,69,69,0.3); }
+.badge-limpio  { background: rgba(16,185,129,0.08); color: var(--success); border: 1px solid rgba(16,185,129,0.2); }
+
+[data-theme="dark"] .badge-alto    { background: rgba(232,69,69,0.18);  color: #ff6b6b; }
+[data-theme="dark"] .badge-medio   { background: rgba(245,166,35,0.18); color: #ffb84d; }
+[data-theme="dark"] .badge-bajo    { background: rgba(16,185,129,0.18); color: var(--mint); }
+[data-theme="dark"] .badge-fraude  { background: rgba(232,69,69,0.20);  color: #ff6b6b; }
+[data-theme="dark"] .badge-limpio  { background: rgba(16,185,129,0.16); color: var(--mint); }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes pulse-ring {
-  0%   { box-shadow: 0 0 0 0 rgba(0,194,180,0.4); }
-  70%  { box-shadow: 0 0 0 10px rgba(0,194,180,0); }
-  100% { box-shadow: 0 0 0 0 rgba(0,194,180,0); }
+  0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.3); }
+  70%  { box-shadow: 0 0 0 10px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
 }
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 
-.fade-up { animation: fadeUp 0.4s ease both; }
+.fade-up   { animation: fadeUp 0.4s ease both; }
 .fade-up-1 { animation: fadeUp 0.4s 0.05s ease both; }
 .fade-up-2 { animation: fadeUp 0.4s 0.10s ease both; }
 .fade-up-3 { animation: fadeUp 0.4s 0.15s ease both; }
