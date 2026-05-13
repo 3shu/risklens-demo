@@ -108,15 +108,16 @@ export default function ScoringPage() {
       let data
 
       if (API_URL) {
+        const { nombre: _n, cedula: _c, ...safeForm } = form
         const res = await fetch(`${API_URL}/score`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY },
           body: JSON.stringify({
-            ...form,
-            edad: parseInt(form.edad), num_empleados: parseInt(form.num_empleados),
-            suma_asegurada: parseInt(form.suma_asegurada),
-            siniestros_previos: parseInt(form.siniestros_previos),
-            antiguedad_cliente: parseInt(form.antiguedad_cliente),
+            ...safeForm,
+            edad: parseInt(safeForm.edad), num_empleados: parseInt(safeForm.num_empleados),
+            suma_asegurada: parseInt(safeForm.suma_asegurada),
+            siniestros_previos: parseInt(safeForm.siniestros_previos),
+            antiguedad_cliente: parseInt(safeForm.antiguedad_cliente),
           }),
         })
         if (res.status === 401) {
