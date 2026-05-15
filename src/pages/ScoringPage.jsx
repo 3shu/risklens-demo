@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Shield, AlertTriangle, Zap, Wifi, WifiOff, Lock } from 'lucide-react'
 import { calcularScore, RAMOS, ACTIVIDADES, PROVINCIAS } from '../data/data.js'
 import { useAuth } from '../contexts/AuthContext'
+import { signRequest } from '../lib/sign'
 
 const API_URL = import.meta.env.VITE_API_URL || ''
 const FREE_LIMIT = 300
@@ -81,6 +82,7 @@ const QuotaWall = ({ mensaje }) => (
 export default function ScoringPage() {
   const { user } = useAuth()
   const API_KEY = user?.apiKey || import.meta.env.VITE_API_KEY || 'demo-key'
+  const SECRET_CLI = user?.secret_ref || import.meta.env.VITE_SECRET_CLI || ''
   const tokenKey = `rl_tokens_${user?.email || 'demo'}`
   const [form, setForm] = useState({
     ramo: 'riesgos_trabajo', actividad_ciiu: '4520', provincia: 'Puntarenas',
@@ -109,16 +111,26 @@ export default function ScoringPage() {
 
       if (API_URL) {
         const { nombre: _n, cedula: _c, ...safeForm } = form
+        const payload = {
+          ...safeForm,
+          edad: parseInt(safeForm.edad), num_empleados: parseInt(safeForm.num_empleados),
+          suma_asegurada: parseInt(safeForm.suma_asegurada),
+          siniestros_previos: parseInt(safeForm.siniestros_previos),
+          antiguedad_cliente: parseInt(safeForm.antiguedad_cliente),
+        }
+
+        // Firmar la request con HMAC-SHA256. El body devuelto es el JSON exacto
+        // que fue firmado — debe usarse tal cual o la firma deja de coincidir.
+        const { headers, body } = await signRequest({
+          apiKey: API_KEY,
+          secret: SECRET_CLI,
+          payload,
+        })
+
         const res = await fetch(`${API_URL}/score`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY },
-          body: JSON.stringify({
-            ...safeForm,
-            edad: parseInt(safeForm.edad), num_empleados: parseInt(safeForm.num_empleados),
-            suma_asegurada: parseInt(safeForm.suma_asegurada),
-            siniestros_previos: parseInt(safeForm.siniestros_previos),
-            antiguedad_cliente: parseInt(safeForm.antiguedad_cliente),
-          }),
+          headers,
+          body,
         })
         if (res.status === 401) {
           const body = await res.json().catch(() => ({}))
