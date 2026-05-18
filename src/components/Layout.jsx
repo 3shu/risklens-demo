@@ -6,7 +6,7 @@ import { useTheme } from '../contexts/ThemeContext'
 
 const NAV = [
   { to: '/',           icon: Shield,     label: 'Scoring',    sub: 'Suscripcion' },
-  { to: '/siniestros', icon: FileSearch, label: 'Siniestros', sub: 'Antifraude' },
+  { to: '/claims',     icon: FileSearch, label: 'Siniestros', sub: 'Antifraude' },
   { to: '/cartera',    icon: BarChart3,  label: 'Cartera',    sub: 'Analytics' },
 ]
 

@@ -5,7 +5,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Layout from './components/Layout.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import ScoringPage from './pages/ScoringPage.jsx'
-import SiniestrosPage from './pages/SiniestrosPage.jsx'
+import ClaimsPage from './pages/ClaimsPage.jsx'
 import CarteraPage from './pages/CarteraPage.jsx'
 
 function LayoutWrapper() {
@@ -22,7 +22,7 @@ export default function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<LayoutWrapper />}>
               <Route path="/"           element={<ScoringPage />} />
-              <Route path="/siniestros" element={<SiniestrosPage />} />
+              <Route path="/claims"     element={<ClaimsPage />} />
               <Route path="/cartera"    element={<CarteraPage />} />
             </Route>
           </Route>
